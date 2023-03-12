@@ -1,0 +1,3 @@
+# add en folder too the gitignore
+en
+__pycache__
