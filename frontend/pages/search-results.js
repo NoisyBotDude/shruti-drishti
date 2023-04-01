@@ -369,6 +369,7 @@ export default function SearchResults() {
             <div className="col-md-4">
               <p style={{ fontSize: "large" }}>{question}</p>
               {answers.map((item, index) => {
+                return (
                 <div
                   className="p-3 border rounded"
                   style={{
@@ -381,7 +382,6 @@ export default function SearchResults() {
                 >
                   <input
                     type="checkbox"
-                    id="vehicle1"
                     name="vehicle1"
                     value="Bike"
                     style={{ height: "22px", width: "22px" }}
@@ -391,7 +391,8 @@ export default function SearchResults() {
                       {item}
                     </p>{" "}
                   </label>
-                </div>;
+                </div>
+                )
               })}
             </div>
           </div>
