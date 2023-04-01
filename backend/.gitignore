@@ -1,3 +1,4 @@
 # add en folder too the gitignore
 en
 __pycache__
+./0.npy

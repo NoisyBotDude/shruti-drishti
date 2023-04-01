@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import React, { useState } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
+// import outputVideo from "../public/output.mp4"
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -104,14 +105,14 @@ function TextToVideo() {
               >
                 {/* <Webcam mirrored={true} style={{ width: "100%", height: "100%" }} /> */}
                 <video width="100%" height="100%" controls>
+                  {/* <source
+                    src="C:\Users\ashis\OneDrive\Desktop\Projects\shruti-drishti-remote\shruti-drishti\backend\output.mp4"
+                    type="video/mp4"
+                  /> */}
                   <source
-                    src="./output.mp4"
+                    src={video}
                     type="video/mp4"
                   />
-                  {/* <source
-                    src="https://www.w3schools.com/html/mov_bbb.ogg"
-                    type="video/ogg"
-                  /> */}
                   Your browser does not support HTML video.
                 </video>
               </div>

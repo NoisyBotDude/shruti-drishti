@@ -55,15 +55,22 @@ function main() {
                     <div className='col-md-4 d-flex align-items-center justify-content-center'>
                         <Image src={SkullImage} width={400} alt=""/>
                     </div>
-                    <div className='col-md-4 d-flex align-items-center justify-content-center'>
-                    <Link href='/text-video' className='text-decoration-none text-white'>
+                    <div className='col-md-4 d-flex align-items-center flex-column justify-content-center'>
+                        <div className='col-md-4 d-flex align-items-center justify-content-center mb-3'>
+                            <Link href='/text-video' className='text-decoration-none text-white'>
+                                <button className='glow-on-hover ms-2'>
+                                Text-To-Video
+                                </button>
+                            </Link>
+                            <Link href='/video-text' className='text-decoration-none text-white'>
+                                <button className='glow-on-hover ms-2'>
+                                    RealTime Video-To-Text
+                                </button>
+                            </Link>
+                        </div>
+                        <Link href='/home' className='text-decoration-none text-white'>
                             <button className='glow-on-hover ms-2'>
-                              Text-To-Video
-                            </button>
-                        </Link>
-                        <Link href='/video-text' className='text-decoration-none text-white'>
-                            <button className='glow-on-hover ms-2'>
-                                RealTime Video-To-Text
+                                For K-12 Students
                             </button>
                         </Link>
                     </div>

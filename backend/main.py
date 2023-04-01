@@ -16,6 +16,11 @@ from PIL import Image, ImageTk
 from itertools import count
 import string
 import os
+import openai
+import uvicorn
+import requests
+
+from youtube_transcript_api import  YouTubeTranscriptApi
 
 app = FastAPI()
 
@@ -37,6 +42,9 @@ model = load_model('actionv2new.h5')
 class TextInput(BaseModel):
     text: str
 
+class UserSearchSchema(BaseModel):
+    query: str
+    max_results: int
 
 @app.post("/predict_text")
 async def predict_text(file: UploadFile = File(...)):
@@ -96,6 +104,7 @@ async def predict_text(file: UploadFile = File(...)):
         os.remove(file.filename)
 
     return {'predicted_text': ' '.join(sentence)}
+
 
 
 @app.post("/convert_text_to_video")
@@ -168,11 +177,10 @@ async def convert_text_to_video(text_input: TextInput):
     # Return video file
     return {"type": type_of, 'test': test,"video_path":video_path}
 
-import os
-import openai
+openai.api_key = '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'
 
-from youtube_transcript_api import  YouTubeTranscriptApi
-openai.api_key = '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'
+print("Server is running on port 8000")
+
 
 @app.post("/get_questions")
 async def get_questions(video_id: TextInput):
@@ -202,4 +210,27 @@ async def get_questions(video_id: TextInput):
     else:
 
         return {"status":200,"question_list":"","answers_list":"","description":"NO transcript available for this video."}
+    
+URL = "https://youtube.googleapis.com/youtube/v3/search"
 
+@app.post('/user/search')
+async def get_search_results(
+    request: UserSearchSchema,
+):
+
+    try:
+        params = {
+            "part": "snippet",
+            "maxResults": request.max_results,
+            "q": request.query,
+            "key" : "AIzaSyBA5cXWRn7vWcCFtvCC2SfcTg_3-GCsxB4"
+        }
+        response = requests.get(url=URL, params=params)
+
+        return response.json()
+
+    except Exception as e:
+        return {"status": 500, "description": str(e)}
+
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="127.0.0.1", port=5000, reload=True)
