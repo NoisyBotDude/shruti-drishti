@@ -1,6 +1,7 @@
 from tet import mp_holistic, mediapipe_detection, draw_styled_landmarks, extract_keypoints
 import shutil
 from make_folders import actions
+
 from keras.models import load_model
 import cv2
 import numpy as np
@@ -8,7 +9,7 @@ from fastapi import FastAPI
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import speech_recognition as sr
+# import speech_recognition as sr
 import numpy as np
 import cv2
 from PIL import Image, ImageTk
@@ -99,7 +100,7 @@ async def predict_text(file: UploadFile = File(...)):
 
 @app.post("/convert_text_to_video")
 async def convert_text_to_video(text_input: TextInput):
-    r = sr.Recognizer()
+    # r = sr.Recognizer()
     isl_gif = ['any questions', 'are you angry', 'are you busy', 'are you hungry', 'are you sick', 'be careful',
                'can we meet tomorrow', 'did you book tickets', 'did you finish homework', 'do you go to office', 'do you have money',
                'do you want something to drink', 'do you want tea or coffee', 'do you watch TV', 'dont worry', 'flower is beautiful',
@@ -137,7 +138,8 @@ async def convert_text_to_video(text_input: TextInput):
         print(word)
         test = 'y'
         type_of = "in_gif"
-        gif_path = f"ISL_Gifs/{text_input.text}.gif"
+        gif_path = f"ISL_Gifs/{word}.gif"
+        #backend\ISL_Gifs\A.jpg
         gif = cv2.VideoCapture(gif_path)
         while True:
             ret, frame = gif.read()
@@ -149,7 +151,7 @@ async def convert_text_to_video(text_input: TextInput):
         for c in word:
             if c in arr:
                 type_of = "letter"
-                image_path = f"letters/{c}.jpg"
+                image_path = f"letters/{c}.jpg" 
                 ImageItself = Image.open(image_path)
                 ImageNumpyFormat = np.asarray(ImageItself)
                 output_frames.append(ImageNumpyFormat)
@@ -164,4 +166,40 @@ async def convert_text_to_video(text_input: TextInput):
     video.release()
 
     # Return video file
-    return {"file_path": os.path.abspath(video_path), "type": type_of, 'test': test}
+    return {"type": type_of, 'test': test,"video_path":video_path}
+
+import os
+import openai
+
+from youtube_transcript_api import  YouTubeTranscriptApi
+openai.api_key = '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'
+
+@app.post("/get_questions")
+async def get_questions(video_id: TextInput):
+    text_input=''
+    srt = YouTubeTranscriptApi.get_transcript(video_id.text)
+    for ele in srt:
+        text_input+=ele['text']+" "
+    
+    if len(text_input)>0:
+
+        response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Create 5 multiple choice questions, with four options also return along with the one correct answer based on the following text:"+text_input,
+        temperature=0.5,
+        max_tokens=150,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0)   
+
+        questions_ans=[]
+        correct_ans=[]
+        for i in range(len(response['choices'])):
+            questions_ans.append(response['choices'][i]['text'])
+        for j in questions_ans:
+            correct_ans.append(j.split("\nA")[-1])
+        return {"status":200,"question_list":questions_ans,"answers_list":correct_ans}
+    else:
+
+        return {"status":200,"question_list":"","answers_list":"","description":"NO transcript available for this video."}
+
