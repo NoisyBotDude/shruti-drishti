@@ -58,6 +58,14 @@ Our proposed solution involves using deep learning models to facilitate communic
 ## Proposed Workflow (credits to the Open Source Paper)
 ![image](https://github.com/pranjalkar99/shruti-drishti/assets/74347116/4636a003-09f4-4953-92ad-c3df4b9fea1e)
 
+
+
+Project Contributors:
+Pranjal Kar (https://github.com/pranjalkar99/)
+Ashish Sarmah (https://github.com/NoisyBotDude)
+Rajdeep Nath (https://github.com/RAZDYP)
+Bhaswata Choudhury (https://github.com/bhaswata08)
+Samunder Singh (https://github.com/samthakur587)
 (we thank the authors of the paper https://aclanthology.org/2023.at4ssl-1.3.pdf for the architectural flow, and workflow, our open source project is aimed at research for Indian usecases)
 **Note:**
 The development and research is under progress.
