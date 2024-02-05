@@ -47,5 +47,13 @@ Our proposed solution involves using deep learning models to facilitate communic
    - Create a user-friendly multilingual app serving as an interface for our Sign Language Translation services.
    - Ensure the app facilitates easy interaction and adoption by both deaf and non-deaf users.
 
+# Progress So Far
+
+- [x] Basic Deep Learning-based LSTM model for sign language recognition (Done)
+- [x] Custom multi-headed attention-based encoder for sign language recognition for dynamic signs (Done)
+- [ ] Testing on the whole Indian dataset for our attention model (In Progress)
+- [ ] Implementing the pose-to-text and the implementation of the paper (In Progress)
+- [ ] Build multilingual app (To Do)
+
 **Note:**
 Adjust the action plans and details as needed based on ongoing research and development. This markdown can be used as a README on a GitHub repository documenting your project.
