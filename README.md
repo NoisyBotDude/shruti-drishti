@@ -56,4 +56,4 @@ Our proposed solution involves using deep learning models to facilitate communic
 - [ ] Build multilingual app (To Do)
 
 **Note:**
-Adjust the action plans and details as needed based on ongoing research and development. This markdown can be used as a README on a GitHub repository documenting your project.
+The development and research is under progress.
